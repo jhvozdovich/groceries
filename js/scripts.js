@@ -8,20 +8,24 @@ $(document).ready(function(){
     }
    
     var newGrocery = itemList.map(function(item){
-      if($("#" + item).val().length !== 0) {
+      if($("#" + item).val() !== undefined) {
         var userInput = $("#" + item).val().toLowerCase();
         return userInput;
       }  
     });
 
-    newGrocery.sort();
-    var newArray = newGrocery.map(function(item){
-      return item.toUpperCase(); 
+    var filteredGrocery = newGrocery.filter(item => item.length>0);
+
+    filteredGrocery.sort();
+
+    var newArray = filteredGrocery.map(function(item){
+      var upper = item.toUpperCase(); 
+      return upper
     });
-    console.log(newArray);
+
     newArray.forEach(function(item) {
-      var list = $("#unorderedList ul");
-      $("<li></li>").html(item).appendTo(list);
+      var list = $(".finalList #unorderedList");
+      $("<li>"+ item +"</li>").appendTo(list);
     });
 
     $(".finalList").show();
